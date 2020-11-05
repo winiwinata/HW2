@@ -38,8 +38,7 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "datacell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "datacell", for: indexPath) as! TableViewCell
         
         // Configure the cell...
         cell.nameLabel.text = fruits[indexPath.row]
@@ -55,7 +54,6 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         
         // Create an option menu as an action sheet
         let optionMenu = UIAlertController(title: nil, message: "What do you want to buy?", preferredStyle: .actionSheet)
@@ -77,11 +75,7 @@ class TableViewController: UITableViewController {
             cell?.accessoryType = .checkmark
             self.checked[indexPath.row] = true
             
-            // modify !!!
-            let sum = [Int]()
-            sum.append([Int](prices[indexPath.row]))
-            
-        },
+        })
         optionMenu.addAction(checkAction)
         
         // Add Undo Check-in action
@@ -94,20 +88,27 @@ class TableViewController: UITableViewController {
                 self.checked[indexPath.row] = false
             }
         })
-    optionMenu.addAction(unCheckAction)
-    
-    // Add actions to the menu
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    optionMenu.addAction(cancelAction)
-    
-    // Display the menu
-    present(optionMenu, animated: true, completion: nil)
-    
-    // Deselect a row
-    tableView.deselectRow(at: indexPath, animated: false)
-    
-    // sum the prices ///////////////////////////
-   
+        optionMenu.addAction(unCheckAction)
+        
+        var priceRec = Array(prices[indexPath])
+        //here, make an array to record the fruits chosen
+        //then use loops to scan the array
+        // then take the number and add it on the total prices
+        
+        
+        // Add actions to the menu
+        // let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        // optionMenu.addAction(cancelAction)
+        
+        // Display the menu
+        present(optionMenu, animated: true, completion: nil)
+        
+        // Deselect a row
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        // sum the prices ///////////////////////////
+        total.text = "Total prices = " + totalPrice
+        
     }
-
+    
 }
